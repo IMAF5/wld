@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeilandChat - 跨境电商即时通讯软件</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f7;
+            color: #1d1d1f;
+            line-height: 1.5;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* 动态背景 */
+        .dynamic-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .gradient-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            opacity: 0.9;
+        }
+        
+        .floating-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(0, 122, 255, 0.15) 0%, rgba(52, 199, 89, 0.15) 100%);
+            animation: float 15s infinite ease-in-out;
+        }
+        
+        .shape:nth-child(1) {
+            width: 150px;
+            height: 150px;
+            top: 10%;
+            left: 5%;
+            animation-delay: 0s;
+        }
+        
+        .shape:nth-child(2) {
+            width: 100px;
+            height: 100px;
+            top: 60%;
+            left: 80%;
+            animation-delay: 2s;
+        }
+        
+        .shape:nth-child(3) {
+            width: 120px;
+            height: 120px;
+            top: 30%;
+            left: 70%;
+            animation-delay: 4s;
+        }
+        
+        .shape:nth-child(4) {
+            width: 80px;
+            height: 80px;
+            top: 80%;
+            left: 10%;
+            animation-delay: 6s;
+        }
+        
+        .shape:nth-child(5) {
+            width: 200px;
+            height: 200px;
+            top: 40%;
+            left: 20%;
+            animation-delay: 8s;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            25% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+            50% {
+                transform: translateY(0) rotate(0deg);
+            }
+            75% {
+                transform: translateY(20px) rotate(-5deg);
+            }
+        }
+        
+        .pulse-dots {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .dot {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: rgba(0, 122, 255, 0.4);
+            border-radius: 50%;
+            animation: pulse 3s infinite ease-in-out;
+        }
+        
+        .dot:nth-child(1) {
+            top: 20%;
+            left: 15%;
+            animation-delay: 0s;
+        }
+        
+        .dot:nth-child(2) {
+            top: 70%;
+            left: 85%;
+            animation-delay: 0.5s;
+        }
+        
+        .dot:nth-child(3) {
+            top: 40%;
+            left: 90%;
+            animation-delay: 1s;
+        }
+        
+        .dot:nth-child(4) {
+            top: 85%;
+            left: 20%;
+            animation-delay: 1.5s;
+        }
+        
+        .dot:nth-child(5) {
+            top: 50%;
+            left: 5%;
+            animation-delay: 2s;
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+            50% {
+                transform: scale(1.5);
+                opacity: 1;
+            }
+        }
+        
+        /* 彩色飘带 */
+        .ribbon {
+            position: absolute;
+            width: 200px;
+            height: 40px;
+            background: linear-gradient(90deg, #007AFF, #34C759, #FF9500, #FF3B30);
+            opacity: 0.1;
+            transform: rotate(-45deg);
+            animation: ribbonFloat 20s infinite linear;
+            z-index: -1;
+        }
+        
+        .ribbon:nth-child(1) {
+            top: 10%;
+            left: -50px;
+            animation-delay: 0s;
+        }
+        
+        .ribbon:nth-child(2) {
+            top: 30%;
+            left: -100px;
+            animation-delay: 5s;
+        }
+        
+        .ribbon:nth-child(3) {
+            top: 50%;
+            left: -150px;
+            animation-delay: 10s;
+        }
+        
+        .ribbon:nth-child(4) {
+            top: 70%;
+            left: -200px;
+            animation-delay: 15s;
+        }
+        
+        @keyframes ribbonFloat {
+            0% {
+                transform: rotate(-45deg) translateX(-100px);
+            }
+            100% {
+                transform: rotate(-45deg) translateX(calc(100vw + 200px));
+            }
+        }
+        
+        /* 语言选择器 */
+        .language-selector {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+        }
+        
+        .language-btn {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid #e5e5e7;
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+            backdrop-filter: blur(10px);
+        }
+        
+        .language-btn:hover {
+            background: rgba(255, 255, 255, 1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .language-btn i {
+            font-size: 16px;
+        }
+        
+        /* 顶部动态效果 */
+        .header-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #007AFF, #34C759, #FF9500);
+            z-index: 1000;
+            transform: translateX(-100%);
+            animation: headerSlide 2s ease-out forwards;
+        }
+        
+        @keyframes headerSlide {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(0); }
+        }
+        
+        .container {
+            background-color: rgba(255, 255, 255, 0.75);
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease-out forwards;
+            animation-delay: 0.2s;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        header {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid rgba(229, 229, 231, 0.6);
+            opacity: 0;
+            transform: translateX(-20px);
+            animation: slideInLeft 0.6s ease-out forwards;
+            animation-delay: 0.4s;
+            background: linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(248,249,252,0.7) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+            transform: translateX(-100%);
+            animation: shimmer 3s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        .app-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 18px;
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            flex-shrink: 0;
+            border: 2px solid rgba(255, 255, 255, 0.8);
+        }
+        
+        .app-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .app-info h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            background: linear-gradient(90deg, #007AFF, #34C759);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .app-info .company {
+            font-size: 16px;
+            color: #86868b;
+            margin-bottom: 8px;
+        }
+        
+        .rating {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        
+        .stars {
+            color: #ffcc00;
+            margin-right: 8px;
+        }
+        
+        .rating-value {
+            font-weight: 600;
+            font-size: 16px;
+            color: #1d1d1f;
+        }
+        
+        .rating-count {
+            color: #86868b;
+            margin-left: 5px;
+            font-size: 14px;
+        }
+        
+        .download-buttons {
+            padding: 20px;
+            display: flex;
+            gap: 15px;
+            border-bottom: 1px solid rgba(229, 229, 231, 0.6);
+            flex-direction: column;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease-out forwards;
+            animation-delay: 0.6s;
+            background: linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(248,249,252,0.7) 100%);
+        }
+        
+        .download-btn-group {
+            display: flex;
+            gap: 15px;
+            width: 100%;
+        }
+        
+        .download-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .download-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+        
+        .download-btn:hover::before {
+            left: 100%;
+        }
+        
+        .android-btn {
+            background-color: #34C759;
+            color: white;
+        }
+        
+        .ios-btn {
+            background-color: #007AFF;
+            color: white;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .download-btn i {
+            margin-right: 8px;
+            font-size: 20px;
+        }
+        
+        .support-link {
+            margin-top: 15px;
+            text-align: center;
+        }
+        
+        .support-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 20px;
+            background-color: rgba(240, 240, 242, 0.8);
+            color: #007AFF;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: background-color 0.2s;
+            backdrop-filter: blur(5px);
+        }
+        
+        .support-btn:hover {
+            background-color: rgba(229, 229, 231, 0.9);
+        }
+        
+        .support-btn i {
+            margin-right: 6px;
+            font-size: 16px;
+        }
+        
+        .description {
+            padding: 20px;
+            border-bottom: 1px solid rgba(229, 229, 231, 0.6);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease-out forwards;
+            animation-delay: 0.8s;
+            background: rgba(255, 255, 255, 0.6);
+        }
+        
+        .description h2 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #1d1d1f;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .description h2::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(90deg, #007AFF, #34C759);
+            border-radius: 2px;
+        }
+        
+        .description p {
+            color: #1d1d1f;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .reviews {
+            padding: 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease-out forwards;
+            animation-delay: 1s;
+            background: rgba(255, 255, 255, 0.6);
+        }
+        
+        .reviews-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .reviews h2 {
+            font-size: 20px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .reviews h2::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(90deg, #007AFF, #34C759);
+            border-radius: 2px;
+        }
+        
+        .review {
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(229, 229, 231, 0.6);
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeInUp 0.5s ease-out forwards;
+        }
+        
+        .review:nth-child(1) { animation-delay: 1.2s; }
+        .review:nth-child(2) { animation-delay: 1.3s; }
+        .review:nth-child(3) { animation-delay: 1.4s; }
+        .review:nth-child(4) { animation-delay: 1.5s; }
+        .review:nth-child(5) { animation-delay: 1.6s; }
+        
+        .review:last-child {
+            border-bottom: none;
+        }
+        
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .reviewer {
+            font-weight: 600;
+        }
+        
+        .review-date {
+            color: #86868b;
+            font-size: 14px;
+        }
+        
+        .review-stars {
+            color: #ffcc00;
+            margin-bottom: 10px;
+        }
+        
+        .review-text {
+            color: #1d1d1f;
+            line-height: 1.5;
+        }
+        
+        .add-review {
+            margin-top: 25px;
+            padding: 15px;
+            background-color: rgba(249, 249, 249, 0.7);
+            border-radius: 12px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease-out forwards;
+            animation-delay: 1.8s;
+        }
+        
+        .add-review h3 {
+            margin-bottom: 15px;
+            font-size: 18px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .add-review h3::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(90deg, #007AFF, #34C759);
+            border-radius: 2px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #e5e5e7;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            background: rgba(255, 255, 255, 0.8);
+        }
+        
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: #007AFF;
+            box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.2);
+            outline: none;
+        }
+        
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .star-rating {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+        
+        .star-rating i {
+            font-size: 24px;
+            color: #e5e5e7;
+            cursor: pointer;
+            transition: color 0.2s, transform 0.2s;
+        }
+        
+        .star-rating i:hover {
+            transform: scale(1.2);
+        }
+        
+        .star-rating i.active {
+            color: #ffcc00;
+        }
+        
+        .submit-btn {
+            background-color: #007AFF;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.2s;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .submit-btn:hover {
+            background-color: #0056CC;
+            transform: translateY(-2px);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        
+        .thank-you-message {
+            display: none;
+            padding: 15px;
+            background-color: #34C759;
+            color: white;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 15px;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #86868b;
+            font-size: 14px;
+            opacity: 0;
+            animation: fadeIn 1s ease-out forwards;
+            animation-delay: 2s;
+        }
+        
+        /* 平板样式 */
+        @media (min-width: 768px) {
+            header {
+                padding: 30px;
+            }
+            
+            .app-icon {
+                width: 100px;
+                height: 100px;
+                border-radius: 22px;
+                margin-right: 25px;
+            }
+            
+            .app-info h1 {
+                font-size: 28px;
+            }
+            
+            .app-info .company {
+                font-size: 18px;
+            }
+            
+            .rating-value {
+                font-size: 18px;
+            }
+            
+            .download-buttons {
+                padding: 30px;
+                gap: 20px;
+            }
+            
+            .download-btn {
+                padding: 16px 24px;
+                font-size: 18px;
+            }
+            
+            .download-btn i {
+                font-size: 24px;
+            }
+            
+            .description {
+                padding: 30px;
+            }
+            
+            .description h2 {
+                font-size: 22px;
+            }
+            
+            .reviews {
+                padding: 30px;
+            }
+            
+            .reviews h2 {
+                font-size: 22px;
+            }
+            
+            .add-review {
+                padding: 20px;
+            }
+            
+            .submit-btn {
+                width: auto;
+            }
+        }
+        
+        /* 桌面样式 */
+        @media (min-width: 1024px) {
+            .header-content {
+                display: flex;
+                align-items: center;
+                width: 100%;
+            }
+            
+            .app-info {
+                flex-grow: 1;
+            }
+            
+            .download-btn-group {
+                flex-direction: row;
+            }
+            
+            .description-content {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 30px;
+                align-items: start;
+            }
+            
+            .description-text {
+                grid-column: 1 / 2;
+            }
+            
+            .description-features {
+                grid-column: 2 / 3;
+            }
+            
+            .reviews-container {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 30px;
+            }
+            
+            .reviews-list {
+                grid-column: 1 / 2;
+            }
+            
+            .add-review {
+                grid-column: 2 / 3;
+                margin-top: 0;
+                align-self: start;
+            }
+        }
+        
+        /* 手机样式优化 */
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            header {
+                padding: 15px;
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .app-icon {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
+            .download-btn-group {
+                flex-direction: column;
+            }
+            
+            .review-header {
+                flex-direction: column;
+                gap: 5px;
+            }
+            
+            .language-selector {
+                top: 10px;
+                right: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 动态背景 -->
+    <div class="dynamic-background">
+        <div class="gradient-bg"></div>
+        <div class="floating-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+        <div class="pulse-dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+        <!-- 彩色飘带 -->
+        <div class="ribbon"></div>
+        <div class="ribbon"></div>
+        <div class="ribbon"></div>
+        <div class="ribbon"></div>
+    </div>
+    
+    <!-- 语言选择器 -->
+    <div class="language-selector">
+        <button class="language-btn" id="language-toggle">
+            <i class="fas fa-globe"></i>
+            <span id="current-language">中文</span>
+        </button>
+    </div>
+    
+    <div class="header-animation"></div>
+    
+    <div class="container">
+        <header>
+            <div class="app-icon">
+                <img src="https://weiland.xuclp.com/public/uploads/all/4w7tsRHZ43YdoseEXkb8zKMGw3LpU43BHRWBVCsp.jpg" alt="WeilandChat Logo">
+            </div>
+            <div class="header-content">
+                <div class="app-info">
+                    <h1 data-lang="zh" data-key="app-name">WeilandChat</h1>
+                    <div class="company" data-lang="zh" data-key="company">Weiland跨境电商</div>
+                    <div class="rating">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="rating-value">4.9</div>
+                        <div class="rating-count" data-lang="zh" data-key="reviews-count">(2.8万条评价)</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <div class="download-buttons">
+            <div class="download-btn-group">
+                <a href="https://beta2.appdone.club/lA6F" class="download-btn android-btn" target="_blank">
+                    <i class="fab fa-android"></i>
+                    <span data-lang="zh" data-key="android">Android</span>
+                </a>
+                <a href="https://g.lumawang.com/WeilandChat" class="download-btn ios-btn" target="_blank">
+                    <i class="fab fa-apple"></i>
+                    <span data-lang="zh" data-key="iphone">iPhone</span>
+                </a>
+            </div>
+            <div class="support-link">
+                <a href="https://cdn.bot03zh.cfd/chat/index?channelId=9f2d2aa125604a0097948b070f6786c7" class="support-btn" target="_blank">
+                    <i class="fas fa-headset"></i>
+                    <span data-lang="zh" data-key="support-text">下载遇到问题？联系在线客服</span>
+                </a>
+            </div>
+        </div>
+        
+        <div class="description">
+            <h2 data-lang="zh" data-key="introduction">简介</h2>
+            <div class="description-content">
+                <div class="description-text">
+                    <p data-lang="zh" data-key="description-text">WeilandChat是Weiland跨境电商旗下专为商务沟通设计的即时通讯软件。提供安全、高效的沟通体验，助力您的跨境电商业务。</p>
+                </div>
+                <div class="description-features">
+                    <p data-lang="zh" data-key="features-title">主要功能：</p>
+                    <p data-lang="zh" data-key="feature-1">• 实时文字、语音、视频聊天</p>
+                    <p data-lang="zh" data-key="feature-2">• 安全的端到端加密通信</p>
+                    <p data-lang="zh" data-key="feature-3">• 多人群组聊天，支持文件共享</p>
+                    <p data-lang="zh" data-key="feature-4">• 与Weiland电商平台无缝集成</p>
+                    <p data-lang="zh" data-key="feature-5">• 多语言选择功能，打破沟通障碍</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="reviews">
+            <div class="reviews-header">
+                <h2 data-lang="zh" data-key="ratings-reviews">评分与评论</h2>
+            </div>
+            
+            <div class="reviews-container">
+                <div class="reviews-list">
+                    <div class="review">
+                        <div class="review-header">
+                            <div class="reviewer" data-lang="zh" data-key="reviewer-1">跨***商</div>
+                            <div class="review-date">2025-11-09</div>
+                        </div>
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="review-text" data-lang="zh" data-key="review-text-1">
+                            APP还不错，Weiland专门为商家交流开发的即时通讯工具，良心平台。
+                        </div>
+                    </div>
+                    
+                    <div class="review">
+                        <div class="review-header">
+                            <div class="reviewer" data-lang="zh" data-key="reviewer-2">外***板</div>
+                            <div class="review-date">2025-10-21</div>
+                        </div>
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="review-text" data-lang="zh" data-key="review-text-2">
+                            界面简洁，操作流畅。文件传输速度很快，和团队沟通效率大大提升。希望以后能增加更多商务功能。
+                        </div>
+                    </div>
+                    
+                    <div class="review">
+                        <div class="review-header">
+                            <div class="reviewer" data-lang="zh" data-key="reviewer-3">全***家</div>
+                            <div class="review-date">2025-10-23</div>
+                        </div>
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="review-text" data-lang="zh" data-key="review-text-3">
+                            安全性很好，和客户的沟通记录都有加密保护。视频通话质量也很清晰，跨时区沟通毫无压力。
+                        </div>
+                    </div>
+                    
+                    <div class="review">
+                        <div class="review-header">
+                            <div class="reviewer" data-lang="zh" data-key="reviewer-4">电***主</div>
+                            <div class="review-date">2025-10-22</div>
+                        </div>
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <div class="review-text" data-lang="zh" data-key="review-text-4">
+                            经常出现卡顿，消息加载很慢，有时候重要消息无法及时收到，希望优化性能。
+                        </div>
+                    </div>
+                    
+                    <div class="review">
+                        <div class="review-header">
+                            <div class="reviewer" data-lang="zh" data-key="reviewer-5">海***家</div>
+                            <div class="review-date">2025-10-31</div>
+                        </div>
+                        <div class="review-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <div class="review-text" data-lang="zh" data-key="review-text-5">
+                            功能还可以，但有时消息发送失败，重新登录才能解决，影响商务沟通效率。
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="add-review">
+                    <h3 data-lang="zh" data-key="leave-review">留下您的评论</h3>
+                    <form id="review-form">
+                        <div class="form-group">
+                            <label for="store-name" data-lang="zh" data-key="store-name">店铺名称</label>
+                            <input type="text" id="store-name" placeholder="请输入您的店铺名称" required>
+                        </div>
+                        <div class="form-group">
+                            <label data-lang="zh" data-key="rating">评分</label>
+                            <div class="star-rating" id="star-rating">
+                                <i class="far fa-star" data-rating="1"></i>
+                                <i class="far fa-star" data-rating="2"></i>
+                                <i class="far fa-star" data-rating="3"></i>
+                                <i class="far fa-star" data-rating="4"></i>
+                                <i class="far fa-star" data-rating="5"></i>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="review-text" data-lang="zh" data-key="message">留言</label>
+                            <textarea id="review-text" placeholder="请输入您的评论..." required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn" data-lang="zh" data-key="submit-review">提交评论</button>
+                    </form>
+                    <div class="thank-you-message" id="thank-you-message" data-lang="zh" data-key="thank-you">
+                        谢谢您的建议！
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p data-lang="zh" data-key="copyright">Weiland跨境电商有限公司 © 2018-2025 版权所有</p>
+    </footer>
+
+    <script>
+        // 语言切换功能
+        const languageToggle = document.getElementById('language-toggle');
+        const currentLanguage = document.getElementById('current-language');
+        let isEnglish = false;
+        
+        // 翻译数据
+        const translations = {
+            zh: {
+                'app-name': 'WeilandChat',
+                'company': 'Weiland跨境电商',
+                'reviews-count': '(2.8万条评价)',
+                'android': 'Android',
+                'iphone': 'iPhone',
+                'support-text': '下载遇到问题？联系在线客服',
+                'introduction': '简介',
+                'description-text': 'WeilandChat是Weiland跨境电商旗下专为商务沟通设计的即时通讯软件。提供安全、高效的沟通体验，助力您的跨境电商业务。',
+                'features-title': '主要功能：',
+                'feature-1': '• 实时文字、语音、视频聊天',
+                'feature-2': '• 安全的端到端加密通信',
+                'feature-3': '• 多人群组聊天，支持文件共享',
+                'feature-4': '• 与Weiland电商平台无缝集成',
+                'feature-5': '• 多语言选择功能，打破沟通障碍',
+                'ratings-reviews': '评分与评论',
+                'reviewer-1': '跨***商',
+                'reviewer-2': '外***板',
+                'reviewer-3': '全***家',
+                'reviewer-4': '电***主',
+                'reviewer-5': '海***家',
+                'review-text-1': 'APP还不错，Weiland专门为商家交流开发的即时通讯工具，良心平台。',
+                'review-text-2': '界面简洁，操作流畅。文件传输速度很快，和团队沟通效率大大提升。希望以后能增加更多商务功能。',
+                'review-text-3': '安全性很好，和客户的沟通记录都有加密保护。视频通话质量也很清晰，跨时区沟通毫无压力。',
+                'review-text-4': '经常出现卡顿，消息加载很慢，有时候重要消息无法及时收到，希望优化性能。',
+                'review-text-5': '功能还可以，但有时消息发送失败，重新登录才能解决，影响商务沟通效率。',
+                'leave-review': '留下您的评论',
+                'store-name': '店铺名称',
+                'rating': '评分',
+                'message': '留言',
+                'submit-review': '提交评论',
+                'thank-you': '谢谢您的建议！',
+                'copyright': 'Weiland跨境电商有限公司 © 2018-2025 版权所有'
+            },
+            en: {
+                'app-name': 'WeilandChat',
+                'company': 'Weiland Cross-border E-commerce',
+                'reviews-count': '(28K reviews)',
+                'android': 'Android',
+                'iphone': 'iPhone',
+                'support-text': 'Download issues? Contact online support',
+                'introduction': 'Introduction',
+                'description-text': 'WeilandChat is an instant messaging software designed for business communication under Weiland Cross-border E-commerce. It provides secure and efficient communication experience to help your cross-border e-commerce business.',
+                'features-title': 'Main Features:',
+                'feature-1': '• Real-time text, voice, and video chat',
+                'feature-2': '• Secure end-to-end encrypted communication',
+                'feature-3': '• Multi-person group chat with file sharing',
+                'feature-4': '• Seamless integration with Weiland e-commerce platform',
+                'feature-5': '• Multi-language selection to break communication barriers',
+                'ratings-reviews': 'Ratings & Reviews',
+                'reviewer-1': 'Cro***er',
+                'reviewer-2': 'For***ner',
+                'reviewer-3': 'Glo***ler',
+                'reviewer-4': 'E-c***er',
+                'reviewer-5': 'Ove***ler',
+                'review-text-1': 'The app is pretty good. Weiland developed this instant messaging tool specifically for merchant communication, a conscientious platform.',
+                'review-text-2': 'Simple interface, smooth operation. File transfer is fast, greatly improving team communication efficiency. Hope to add more business features in the future.',
+                'review-text-3': 'Great security, all communication records with customers are encrypted. Video call quality is also clear, no pressure for cross-timezone communication.',
+                'review-text-4': 'Frequent lagging, slow message loading, sometimes important messages cannot be received in time, hope to optimize performance.',
+                'review-text-5': 'Features are acceptable, but sometimes messages fail to send, requiring re-login to resolve, affecting business communication efficiency.',
+                'leave-review': 'Leave Your Review',
+                'store-name': 'Store Name',
+                'rating': 'Rating',
+                'message': 'Message',
+                'submit-review': 'Submit Review',
+                'thank-you': 'Thank you for your feedback!',
+                'copyright': 'Weiland Cross-border E-commerce Co., Ltd. © 2018-2025 All Rights Reserved'
+            }
+        };
+        
+        // 语言切换函数
+        function toggleLanguage() {
+            isEnglish = !isEnglish;
+            const lang = isEnglish ? 'en' : 'zh';
+            currentLanguage.textContent = isEnglish ? 'English' : '中文';
+            
+            // 更新所有带data-key属性的元素
+            document.querySelectorAll('[data-key]').forEach(element => {
+                const key = element.getAttribute('data-key');
+                if (translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+            
+            // 更新输入框placeholder
+            const storeNameInput = document.getElementById('store-name');
+            const reviewTextarea = document.getElementById('review-text');
+            
+            if (isEnglish) {
+                storeNameInput.placeholder = 'Please enter your store name';
+                reviewTextarea.placeholder = 'Please enter your review...';
+            } else {
+                storeNameInput.placeholder = '请输入您的店铺名称';
+                reviewTextarea.placeholder = '请输入您的评论...';
+            }
+        }
+        
+        // 绑定语言切换事件
+        languageToggle.addEventListener('click', toggleLanguage);
+        
+        // 星级评分功能
+        const stars = document.querySelectorAll('.star-rating i');
+        let selectedRating = 0;
+        
+        stars.forEach(star => {
+            star.addEventListener('click', function() {
+                const rating = parseInt(this.getAttribute('data-rating'));
+                selectedRating = rating;
+                
+                // 更新星星显示
+                stars.forEach((s, index) => {
+                    if (index < rating) {
+                        s.classList.remove('far');
+                        s.classList.add('fas', 'active');
+                    } else {
+                        s.classList.remove('fas', 'active');
+                        s.classList.add('far');
+                    }
+                });
+            });
+            
+            // 鼠标悬停效果
+            star.addEventListener('mouseover', function() {
+                const rating = parseInt(this.getAttribute('data-rating'));
+                
+                stars.forEach((s, index) => {
+                    if (index < rating) {
+                        s.classList.remove('far');
+                        s.classList.add('fas');
+                    } else {
+                        s.classList.remove('fas');
+                        s.classList.add('far');
+                    }
+                });
+            });
+            
+            // 鼠标离开恢复
+            star.addEventListener('mouseout', function() {
+                stars.forEach((s, index) => {
+                    if (index < selectedRating) {
+                        s.classList.remove('far');
+                        s.classList.add('fas', 'active');
+                    } else {
+                        s.classList.remove('fas', 'active');
+                        s.classList.add('far');
+                    }
+                });
+            });
+        });
+        
+        // 表单提交处理
+        document.getElementById('review-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // 验证是否选择了评分
+            if (selectedRating === 0) {
+                const message = isEnglish ? 'Please select a rating' : '请选择评分';
+                alert(message);
+                return;
+            }
+            
+            // 显示感谢信息
+            document.getElementById('thank-you-message').style.display = 'block';
+            
+            // 重置表单
+            this.reset();
+            
+            // 重置星星
+            stars.forEach(star => {
+                star.classList.remove('fas', 'active');
+                star.classList.add('far');
+            });
+            selectedRating = 0;
+            
+            // 3秒后隐藏感谢信息
+            setTimeout(() => {
+                document.getElementById('thank-you-message').style.display = 'none';
+            }, 3000);
+        });
+        
+        // 添加悬浮粒子效果
+        document.addEventListener('DOMContentLoaded', function() {
+            const floatingShapes = document.querySelector('.floating-shapes');
+            
+            // 创建更多动态形状
+            for (let i = 0; i < 8; i++) {
+                const shape = document.createElement('div');
+                shape.classList.add('shape');
+                
+                // 随机大小
+                const size = Math.random() * 100 + 50;
+                shape.style.width = `${size}px`;
+                shape.style.height = `${size}px`;
+                
+                // 随机位置
+                shape.style.top = `${Math.random() * 100}%`;
+                shape.style.left = `${Math.random() * 100}%`;
+                
+                // 随机动画延迟
+                shape.style.animationDelay = `${Math.random() * 10}s`;
+                
+                floatingShapes.appendChild(shape);
+            }
+            
+            // 创建更多脉冲点
+            const pulseDots = document.querySelector('.pulse-dots');
+            
+            for (let i = 0; i < 15; i++) {
+                const dot = document.createElement('div');
+                dot.classList.add('dot');
+                
+                // 随机位置
+                dot.style.top = `${Math.random() * 100}%`;
+                dot.style.left = `${Math.random() * 100}%`;
+                
+                // 随机动画延迟
+                dot.style.animationDelay = `${Math.random() * 3}s`;
+                
+                pulseDots.appendChild(dot);
+            }
+        });
+    </script>
+</body>
+</html>
